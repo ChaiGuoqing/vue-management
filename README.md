@@ -1,16 +1,6 @@
 # vue搭建后台管理界面模版（PC端）
 ------------------------
 
-<img src="./static/gif.gif" width="100%" height="519px"/>  
-
-
-#### 技术栈
-vue2 + vuex + vue-router + webpack + ES6/7 + axios + elementUI + 阿里图标iconfont
-
-#### 项目预览
-[http://ldhblog.gitee.io/vueproject/#/login](http://ldhblog.gitee.io/vueproject/#/login)
-
-
 #### 说明
 
 >  本项目主要用于熟悉如何用 vue2 架构一个后端管理平台项目
@@ -54,117 +44,6 @@ vue2 + vuex + vue-router + webpack + ES6/7 + axios + elementUI + 阿里图标ico
 └── README.md        # 项目文档
 ```
 
-#### 强调
-
-项目请求已经改为假数据，例如：
-``` bash
-// 模拟数据开始
-      let res = {
-        code: 0,
-        msg: null,
-        count: 12,
-        data: [
-          {
-            addUser: '1',
-            editUser: '1',
-            addTime: null,
-            editTime: 1527411068000,
-            userId: 1,
-            systemNo: 'pmd',
-            userName: 'root',
-            userPassword: 'e10adc3949ba59abbe56e057f20f883e',
-            userRealName: '超级管理员',
-            userSex: '女',
-            userMobile: '138123456789',
-            userEmail: '111@qq.com',
-            isLock: 'N',
-            deptId: 1,
-            deptName: 'xxxx',
-            roleId: 1
-          }
-        ]
-      }
-      this.loading = false
-      this.userData = res.data
-      // 分页赋值
-      this.pageparm.currentPage = this.formInline.page
-      this.pageparm.pageSize = this.formInline.limit
-      this.pageparm.total = res.count
-      // 模拟数据结束
-
-      /***
-       * 调用接口，注释上面模拟数据 取消下面注释
-       */
-      // 获取用户列表
-      // userList(parameter).then(res => {
-      //   this.loading = false
-      //   if (res.success == false) {
-      //     this.$message({
-      //       type: 'info',
-      //       message: res.msg
-      //     })
-      //   } else {
-      //     this.userData = res.data
-      //     // 分页赋值
-      //     this.pageparm.currentPage = this.formInline.page
-      //     this.pageparm.pageSize = this.formInline.limit
-      //     this.pageparm.total = res.count
-      //   }
-      // })
-```
-把模拟数据开始到结束注释掉，下面解除注释即可，
-接口地址需要修改config/index.js文件 dev
-``` bash
-proxyTable: {
-    '/api': {
-        target: 'http://xxx.xxx.xxx.xxx:xxx', // 你请求的第三方接口
-        changeOrigin: true, // 在本地会创建一个虚拟服务端，然后发送请求的数据，并同时接收请求的数据，这样服务端和服务端进行数据的交互就不会有跨域问题
-        pathRewrite: { // 路径重写，
-            '^/api': '/api' // 替换target中的请求地址，也就是说以后你在请求http://api.jisuapi.com/XXXXX这个地址的时候直接写成/api即可。
-        }
-    }
-},
-
-```
-#### 完成功能
-- [x] 登录 -- 完成
-- [x] 路由拦截 -- 完成
-- [x] 商品管理（增加、编辑、搜索、删除） -- 完成
-- [x] 角色管理（增加、编辑、搜索、删除、权限管理） -- 完成
-- [x] 交易订单（增加、编辑、搜索、删除） -- 完成
-- [x] 用户管理（增加、编辑、搜索、删除、数据权限、刷新缓存） -- 完成
-- [x] 支付配置（增加、编辑、搜索、删除） -- 完成
-- [x] 系统环境变量（增加、编辑、搜索、删除） -- 完成
-- [x] 权限管理（增加、编辑、搜索、删除、配置权限） -- 完成
-- [x] 菜单管理（增加、编辑、搜索、删除） -- 完成
-- [x] 公司管理（增加、编辑、搜索、删除） -- 完成
-
-
-#### 部分截图
-------------------------
-
-商品管理
-![商品管理](./static/商品管理.png "商品管理")
-
-角色管理
-![角色管理](./static/角色管理.png "角色管理")
-
-交易订单
-![交易订单](./static/交易订单.png "交易订单")
-
-编辑
-![编辑](./static/编辑.png "编辑")
-
-用户管理
-![用户管理](./static/用户管理.png "用户管理")
-
-支付配置
-![支付配置](./static/支付配置.png "支付配置")
-
-展开与压缩
-![展开与压缩](./static/展开与压缩.png "展开与压缩")
-
-
 #### 运行项目
 ------------------------
 
@@ -192,13 +71,6 @@ npm test
 
 
 ```
-
-#### 项目源码地址：
-------------------------
-
-码云地址：https://gitee.com/ldhblog/vue-element.git
-github地址：https://github.com/nmgwap/vue-ManagementPlatform.git
-
 
 
 
