@@ -6,17 +6,18 @@
     <el-button class="buttonimg">
       <img class="showimg" :src="collapsed?imgsq:imgshow" @click="toggle(collapsed)">
     </el-button>
+    <i class="el-icon-monitor" @click="goLarge"></i>
     <el-submenu index="2" class="submenu">
       <!-- <template slot="title">{{user.userRealName}}</template> -->
       <template slot="title">超级管理员</template>
-      <el-menu-item index="2-1">设置</el-menu-item>
-      <el-menu-item @click="content()" index="2-2">个人中心</el-menu-item>
+      <!-- <el-menu-item index="2-1">设置</el-menu-item> -->
+      <!-- <el-menu-item @click="content()" index="2-2">个人中心</el-menu-item> -->
       <el-menu-item @click="exit()" index="2-3">退出</el-menu-item>
     </el-submenu>
   </el-menu>
 </template>
 <script>
-import { loginout } from '../api/userMG'
+// import { loginout } from '../api/userMG'
 export default {
   name: 'navcon',
   data() {
@@ -38,8 +39,7 @@ export default {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
-      })
-        .then(() => {
+      }).then(() => {
           setTimeout(() => {
             this.$store.commit('logout', 'false')
             this.$router.push({ path: '/login' })
@@ -73,22 +73,23 @@ export default {
           //     this.$message.error('退出失败，请稍后再试！')
           //   })
         })
-        .catch(() => {
-          this.$message({
-            type: 'info',
-            message: '已取消'
-          })
-        })
     },
     // 切换显示
     toggle(showtype) {
       this.collapsed = !showtype
       this.$root.Bus.$emit('toggle', this.collapsed)
+    },
+    goLarge(){
+      //   var newUrl = this.$router.resolve({
+      //     path: "/large_screen"
+      //   });
+      //   window.open(newUrl.href, "_blank");
+      this.$router.push('/largeScreen');
     }
   }
 }
 </script>
-<style scoped>
+<style lang="less" scoped>
 .el-menu-vertical-demo:not(.el-menu--collapse) {
   border: none;
 }
@@ -109,5 +110,19 @@ export default {
 }
 .showimg:active {
   border: none;
+}
+.sysMsg {
+    text-align: center;
+    cursor: pointer;
+}
+/deep/.el-icon-monitor{
+  color: #fff;
+  font-size: 16px;
+  position: absolute;
+  right: 130px;
+  top: 22px;
+}
+.el-icon-monitor:hover{
+  color: #66b1ff;
 }
 </style>

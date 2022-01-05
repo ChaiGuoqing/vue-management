@@ -46,7 +46,7 @@ import Config from '@/views/pay/Config';
  */
 // 监控查询
 import druidLogin from '@/views/druid/login';
-
+import largeScreen from '@/views/large_screen/index.vue';
 
 // 启用路由
 Vue.use(Router);
@@ -68,6 +68,13 @@ export default new Router({
         hidden: true,
         meta: {
             requireAuth: false
+        }
+    },{
+        path: '/largeScreen',
+        name: '监控查询',
+        component: largeScreen,
+        meta: {
+            requireAuth: true
         }
     }, {
         path: '/index',
@@ -165,6 +172,7 @@ export default new Router({
             meta: {
                 requireAuth: true
             }
-        }]
+        }
+    ]
     }]
 })

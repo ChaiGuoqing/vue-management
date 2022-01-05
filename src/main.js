@@ -12,6 +12,7 @@ import store from './vuex/store';
 // 引入icon
 import './assets/icon/iconfont.css'
 // 
+import './utils/flexible'
 import axios from 'axios';
 Vue.prototype.$axios = axios;
 

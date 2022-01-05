@@ -2,9 +2,9 @@
 * 左边菜单
 */ 
 <template>
-  <el-menu default-active="2" :collapse="collapsed" collapse-transition router :default-active="$route.path" unique-opened class="el-menu-vertical-demo" background-color="#334157" text-color="#fff" active-text-color="#ffd04b">
+  <el-menu :collapse="collapsed" collapse-transition router :default-active="$route.path" unique-opened class="el-menu-vertical-demo" background-color="#334157" text-color="#fff" active-text-color="#ffd04b">
     <div class="logobox">
-      <img class="logoimg" src="../assets/img/logo.png" alt="">
+      <img class="logoimg" src="../assets/img/logo2.png" alt="">
     </div>
     <el-submenu v-for="menu in allmenu" :key="menu.menuid" :index="menu.menuname">
       <template slot="title">
@@ -196,7 +196,7 @@ export default {
   border: none;
 }
 .logobox {
-  height: 40px;
+  height: 70px;
   line-height: 40px;
   color: #9d9d9d;
   font-size: 20px;
