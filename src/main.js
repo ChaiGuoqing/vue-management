@@ -26,7 +26,14 @@ import * as custom from './utils/util'
 Object.keys(custom).forEach(key => {
     Vue.filter(key, custom[key])
 })
-
+String.prototype.compare = function(str) {
+    //不区分大小写
+    if(this.toLowerCase() == str.toLowerCase()) {
+        return true;
+    } else {
+        return false;
+    }
+}
 // 路由拦截器
 router.beforeEach((to, from, next) => {
     if (to.matched.length != 0) {

@@ -8,22 +8,9 @@
             <span>xxxx管理平台</span>
           </div>
         </el-col>
-        <el-col :span="11" style="margin-top:30px">
+        <el-col :span="11">
           <div class="menu_header">
-            <!-- <el-row>
-              <el-col :span="6">
-                <div class="menu_header01" @click="goPath(1)">业务总览</div>
-              </el-col>
-              <el-col :span="6">
-                <div class="menu_header02" @click="goPath(2)">业务后台</div>
-              </el-col>
-              <el-col :span="6">
-                <div class="menu_header02" @click="goPath(3)">管理后台</div>
-              </el-col>
-              <el-col :span="6">
-                <div class="menu_header02" @click="goPath(4)">运维部署后台</div>
-              </el-col>
-            </el-row> -->
+            <FlipClock></FlipClock>
           </div>
         </el-col>
       </el-row>
@@ -58,6 +45,20 @@
                 </el-row>
               </div>
               <div class="content">
+                 <el-row :gutter="10" >
+                    <el-col :span="6" style="text-align:center">
+                      <div id="pie" class="pie"></div>
+                    </el-col>
+                    <!-- <el-col :span="6" style="text-align:center">
+                      <div id="pie2" class="pie"></div>
+                    </el-col> -->
+                    <el-col :span="6" style="text-align:center">
+                      <div id="pie3" class="pie"></div>
+                    </el-col>
+                    <el-col :span="12" style="text-align:center">
+                      <div id="pie4" class="pie"></div>
+                    </el-col>
+                 </el-row>
                 <!-- <el-row :gutter="20">
                   <el-col v-for="(item,index) in AIData" :key="index" :span="6">
                     <div class="content-1">
@@ -76,7 +77,6 @@
                     </div>
                   </el-col>
                 </el-row> -->
-                
               </div>
             </div>
           </div>
@@ -210,8 +210,10 @@
 </template>
 
 <script>
+import FlipClock from './components/FlipClock.vue'
 import ScaleBox from '@/components/scale_box';
 import vueSeamlessScroll from 'vue-seamless-scroll'
+import 'echarts-liquidfill'
 import * as echarts from 'echarts';
 import 'echarts-gl';
 import countTo from 'vue-count-to';
@@ -221,7 +223,8 @@ export default {
   components: {
     countTo,
     vueSeamlessScroll,
-    ScaleBox
+    ScaleBox,
+    FlipClock
   },
   data () {
     return {
@@ -296,6 +299,7 @@ computed: {
     this.getDeviceData()
     this.getAlarmData()
     this.getAIData()
+    this.getPieData()
     // 轮询
     // this.intevalID = setInterval(() => {
     //   // this.getMapData()
@@ -490,6 +494,513 @@ computed: {
             data: convertData(that.dataList),
             silent: false, // 不响应和触发鼠标事件
           }
+          ]
+      }
+      option && myChart.setOption(option,true);
+    },
+    getPieData(){
+      this.initPie()
+      // this.initPie2()
+      this.initPie3()
+      this.initPie4()
+    },
+    initPie(){
+      let value = 80;
+      var chartDom = document.getElementById('pie');
+      var myChart = echarts.init(chartDom);
+      var option = {
+          title: {
+            text: '{a|' + value + '}{c|%}',
+            x: 'center',
+            y: 'center',
+            textStyle: {
+              rich: {
+                  a: {
+                    fontSize: 30,
+                    color: '#29EEF3'
+                  },
+                  c: {
+                    fontSize: 20,
+                    color: '#29EEF3',
+                    // padding: [5,0]
+                  }
+                }
+            }
+          },
+          series: [
+            {
+             name: '',
+             type: 'pie',
+             radius: ['80%', '60%'],
+             silent: true,
+             clockwise: true,
+             startAngle: 90,
+             z: 0,
+             zlevel: 0,
+             label: {
+              normal: {
+                position: "center",
+              }
+             },
+             data: [
+               {
+                  value: value,
+                  name: "",
+                  itemStyle: {
+                    normal: {
+                      color: { // 完成的圆环的颜色
+                        colorStops: [
+                          {
+                            offset: 0,
+                            color: '#A098FC' // 0% 处的颜色
+                          },{
+                            offset: 0.3,
+                            color: '#4386FA' // 0% 处的颜色
+                          },{
+                            offset: 0.6,
+                            color: '#4FADFD' // 0% 处的颜色
+                          },{
+                            offset: 0.8,
+                            color: '#0CD3DB' // 100% 处的颜色
+                          },{
+                            offset: 1,
+                            color: '#646CF9' // 100% 处的颜色
+                          }
+                        ]
+                      },
+                    }
+                  }
+                },{
+                    value: 100 - value,
+                    name: "",
+                    label: {
+                      normal: {
+                        show: false
+                      }
+                    },
+                    itemStyle: {
+                      normal: {
+                        color: "#173164"
+                      }
+                    }
+                }
+             ]
+            },{
+                name: '',
+                type: 'pie',
+                radius: ['50%', '45%'],
+                silent: true,
+                clockwise: true,
+                startAngle: 90,
+                z: 0,
+                zlevel: 0,
+                label: {
+                  normal: {
+                    position: "center",
+                  }
+                },
+                data: [
+                  {
+                    value: value,
+                    name: "",
+                    itemStyle: {
+                      normal: {
+                        color: { // 完成的圆环的颜色
+                          colorStops: [
+                            {
+                              offset: 0,
+                              color: '#00EDF3' // 0% 处的颜色
+                            }, {
+                              offset: 1,
+                              color: '#646CF9' // 100% 处的颜色
+                            }]
+                        },
+                      }
+                    }
+                  },{
+                    value: 100 - value,
+                    name: "",
+                    label: {
+                      normal: {
+                        show: false
+                      }
+                    },
+                    itemStyle: {
+                      normal: {
+                        color: "#173164"
+                      }
+                    }
+                  }
+                ]
+            }
+          ]
+      }
+      option && myChart.setOption(option,true);
+    },
+    initPie2(){
+      var chartDom = document.getElementById('pie2');
+      var myChart = echarts.init(chartDom);
+      var option = {
+          title: [{
+              text: '已完成',
+              x: 'center',
+              top: '55%',
+              textStyle: {
+                  color: '#16CEB9',
+                  fontSize: 12,
+                  fontWeight: '100',
+              }
+          }, {
+              text: '75%',
+              x: 'center',
+              top: '38%',
+              textStyle: {
+                  fontSize: '22',
+                  color: '#16CEB9',
+                  fontFamily: 'DINAlternate-Bold, DINAlternate',
+              },
+          }],
+        polar: {
+          radius: ['70%', '55%'],
+          center: ['50%', '50%'],
+        },
+        angleAxis: {
+          max: 100,
+          show: false,
+        },
+        radiusAxis: {
+          type: 'category',
+          show: true,
+          axisLabel: {
+            show: false,
+          },
+          axisLine: {
+            show: false,
+          },
+          axisTick: {
+            show: false,
+          },
+        }, 
+        series: [{
+          name: '',
+          type: 'bar',
+          roundCap: true,
+          barWidth: 90,
+          showBackground: true,
+          backgroundStyle: {
+            color: 'rgba(66, 66, 66, .3)',
+          },
+          data: [75],
+          coordinateSystem: 'polar',
+          itemStyle: {
+            normal: {
+              color: new echarts.graphic.LinearGradient(0, 1, 0, 0, [{
+                  offset: 0,
+                  color: '#16CEB9',
+                },{
+                  offset: 1,
+                  color: '#6648FF',
+                },
+              ]),
+            },
+          },
+        },{
+          name: '',
+          type: 'pie',
+          startAngle: 80,
+          radius: ['82%'],
+          hoverAnimation: false,
+          center: ['50%', '50%'],
+          itemStyle: {
+            color: 'rgba(66, 66, 66, .1)',
+            borderWidth: 1,
+            borderColor: '#5269EE',
+          },
+          data: [100],
+        },{
+          name: '',
+          type: 'pie',
+          startAngle: 80,
+          radius: ['40%'],
+          hoverAnimation: false,
+          center: ['50%', '50%'],
+          itemStyle: {
+            color: 'rgba(66, 66, 66, .1)',
+            borderWidth: 1,
+            borderColor: '#5269EE',
+          },
+          data: [100],
+        }
+    ],
+      }
+      option && myChart.setOption(option,true);
+    },
+    initPie3(){
+      var chartDom = document.getElementById('pie3');
+      var myChart = echarts.init(chartDom);
+      var option= {
+          title: {
+            text: '',
+            textStyle: {
+              fontWeight: 'normal',
+              fontSize: 25,
+              color: 'rgb(97, 142, 205)'
+            }
+          },
+          series: [{
+            type: 'liquidFill',
+            radius: '78%',
+            center: ['50%', '50%'],
+            data: [0.5, 0.5, 0.5], // data个数代表波浪数
+            // phase: 2, 
+            backgroundStyle: {
+              borderWidth: 1,
+              color: 'rgb(255,0,255,0)'
+            },
+            label: {
+              normal: {
+                formatter: (0.5 * 100).toFixed(2) + '%',
+                textStyle: {
+                  fontSize: 24
+                }
+              }
+            },
+            outline: {
+              show: false,
+            }
+          },{
+              type: "pie",
+              center: ["50%", "50%"],
+              radius: ["80%", "79%"],
+              hoverAnimation: false,
+              data: [
+                {
+                  name: "",
+                  value: 500,
+                  labelLine: {
+                    show: false
+                  },
+                  itemStyle: {
+                    color: '#229aff'
+                  },
+                  emphasis: {
+                    labelLine: {
+                      show: false
+                    },
+                    itemStyle: {
+                      color: '#5886f0'
+                    },
+                  }
+                }
+              ]
+          }]
+      }
+      option && myChart.setOption(option,true);
+    },
+    initPie4(){
+      var chartDom = document.getElementById('pie4');
+      var myChart = echarts.init(chartDom);
+      const symbols = [
+          "path://M66.1,35.7L100,49.8v128.7l-33.9-12.7L66.1,35.7z", //左边
+          "path://M133.9,35.7L100,49.8v128.7l33.9-12.7V35.7z", //右边
+          "path://M66.1,35.7L100,21.5l33.9,14.1L100,49.8L66.1,35.7z", //菱形
+      ]
+      //源数据
+      var data = [
+        { label: "治安", value: 600 }, 
+        { label: "交通", value: 400 }, 
+        { label: "人脸", value: 500 }
+      ]
+      //数据最大值（需要结合源数据取最大值过程不在此编写，可使用lodash）
+      const maxData = 800;
+      //横坐标数值
+      const xAxisData = data.map((e) => {
+          return e.label
+      })
+      //图形颜色
+      const colorList = ["#5f55ed59", "#f8954359", "#47d69d59"]
+      //图形边框颜色
+      const borderColorList = ["#5f55ed", "#f89543", "#47d69d"]
+      //图形顶部颜色
+      const colorTopList = ["#5571f659", "#f1d57759", "#3fdfc159"]
+      //图形顶部框颜色 
+      const colorBorderTopList = ["#5f55ed", "#fd7d3d", "#25cd75"]
+      //图形底部颜色
+      const colorBottomList = ["#437ffa", "#fee266", "#35c9c7"]
+      //图形实体顶部颜色
+      const topColorList = ["#5571f6", "#f1d577", "#3fdfc1"]
+      //图形柱体颜色
+      const barColorList = ["#7148ea", "#fd7d3d", "#25cd75"]
+      //左右框数值
+      const leftAndRightData = []
+      //顶部框数值
+      const topBorderData = []
+      //底部框数值
+      const bottomBorderData = []
+      //顶部实体数值
+      const topData = []
+      //图形柱体数值
+      const barData = []
+      for (var i = 0; i < data.length; i++) {
+        leftAndRightData.push({
+          name: data[i].label,
+          value: maxData,
+          itemStyle: {
+            color: colorList[i],
+            borderColor: borderColorList[i]
+          }
+        })
+        topBorderData.push({
+          name: data[i].label,
+          value: maxData,
+          symbolPosition: "end",
+          itemStyle: {
+            color: colorTopList[i],
+            borderColor: colorBorderTopList[i]
+          }
+        })
+        bottomBorderData.push({
+          name: data[i].label,
+          value: maxData,
+          itemStyle: {
+            color: colorBottomList[i]
+          }
+        })
+        topData.push({
+          name: data[i].label,
+          value: data[i].value,
+          symbolPosition: "end",
+          itemStyle: {
+            color: topColorList[i]
+          }
+        })
+        barData.push({
+          name: data[i].label,
+          value: data[i].value,
+          label: {
+            show: true,
+            position: "bottom",
+            distance: 20,
+            color: barColorList[i],
+            fontSize: 20
+          },
+          itemStyle: {
+            color: new echarts.graphic.LinearGradient(
+              0, 0, 0, 1,
+              [
+                { offset: 0, color: barColorList[i] }, 
+                { offset: 1, color: colorBottomList[i] }
+              ]
+            )
+          }
+        })
+      }
+      var option = {
+          xAxis: [{
+            data: xAxisData,
+            axisTick: {
+              show: false
+            },
+            axisLine: {
+              show: false
+            },
+            axisLabel: {
+              show: false,
+              margin: 60,
+              fontSize: 20,
+              color: "#707FB3"
+            }
+          }],
+          yAxis: {
+            splitLine: {
+              show: false
+            },
+            axisTick: {
+              show: false
+            },
+            axisLine: {
+              show: false
+            },
+            axisLabel: {
+              show: false
+            }
+          },
+          grid: {
+            show: false,
+            height: 140,
+            top: '1.5%',
+            bottom: '2%',
+          },
+          series:[
+            {
+              name: "左边",
+              type: "pictorialBar",
+              symbolSize: ["50%", "100%"],
+              symbolOffset: [-38, 10],
+              barWidth: 60,
+              silent: true,
+              z: 12,
+              symbol: symbols[0],
+              data: leftAndRightData
+            },{
+              name: "右边",
+              type: "pictorialBar",
+              symbolSize: ["50%", "100%"],
+              symbolOffset: [-8, 10],
+              barWidth: 60,
+              silent: true,
+              z: 12,
+              symbol: symbols[1],
+              data: leftAndRightData
+            },
+              // //菱形顶部
+              {
+              name: "",
+              type: "pictorialBar",
+              symbolSize: [60, 27],
+              symbolOffset: [0, -3],
+              silent: true,
+              symbol: symbols[2],
+              data: topBorderData
+            }, // // //菱形底部
+            {
+              name: "",
+              type: "pictorialBar",
+              symbolSize: [60, 25],
+              symbolOffset: [-1, 13],
+              silent: true,
+              z: 12,
+              symbol: symbols[2],
+              data: bottomBorderData
+            },// // //菱形顶部
+            {
+              name: "",
+              type: "pictorialBar",
+              symbolSize: [62, 18],
+              symbolOffset: [0, -10],
+              z: 16,
+              silent: true,
+              symbol: symbols[2],
+              data: topData,
+              animationDuration: 1000,
+              animationDelay: function (idx) {
+                // 越往后的数据延迟越大
+                return idx * 500;
+              }
+            },// // //柱形实体
+            {
+              type: "bar",
+              silent: true,
+              barWidth: 60,
+              barGap: "-100%",
+              z: 13,
+              data: barData,
+              animationDuration: 1000,
+              animationDelay: function (idx) {
+                // 越往后的数据延迟越大
+                return idx * 500;
+              }
+            }
           ]
       }
       option && myChart.setOption(option,true);
@@ -964,38 +1475,14 @@ computed: {
       font-size: 40px;
       font-family:'PangMenZhengDao';
       color: #00FFFF;
-      // background: linear-gradient(0deg, #BDE1FF 0%, #FFFFFF 100%);
       background-image:-webkit-linear-gradient(bottom,#BDE1FF 50%,#fff 100%); 
       -webkit-background-clip:text; 
       -webkit-text-fill-color:transparent; 
     }
   }
-  // .menu_header{
-  //   font-size: 20px;
-  //   height: 56px;
-  //   .menu_header01{
-  //     height: 56px;
-  //     width: 200px;
-  //     background-image: url('./img/img_btn_h.png');
-  //     background-repeat:no-repeat ;
-  //     background-size: 100%;
-  //     text-align: center;
-  //     font-weight: bold;
-  //     line-height: 55px;
-  //   }
-  //   .menu_header02{
-  //     height: 56px;
-  //     width: 200px;
-  //     background-image: url('./img/img_btn.png');
-  //     background-repeat:no-repeat ;
-  //     background-size: 100%;
-  //     text-align: center;
-  //     line-height: 50px;
-  //   }
-  //   .menu_header02:hover{
-  //     background-image: url('./img/img_btn_h.png');
-  //   }
-  // }
+  .menu_header{
+    padding: 20px 50px 0 0;
+  }
 }
 .main-content{
   height: 90%;
@@ -1041,7 +1528,6 @@ computed: {
       }
     }
     .bottom-content{
-      // padding: 10px 10px 0 20px;
       margin-top: 20px;
       height: 220px;
       background-image: url('./img/img_left_bottom_bg.png');
@@ -1064,19 +1550,15 @@ computed: {
         }
       }
       .content{
-        padding: 10px 0 0 5px;
-        height: 140px;
-        .content-1{
-          .alarm-img{
-            width: 180px;
-            height: 100px;
-          }
-          .alarm-num{
-            height: 100px;
-            text-align: center;
-            background-color: rgba(6,36,108,0.43);
-            text-align: center;
-          }
+        height: 195px;
+        .pie{
+          height: 190px;
+        }
+        #pie,#pie2,#pie3{
+          background-image: url('./img/liquidFill_bg.gif') ;
+          background-position: center;
+          background-repeat:no-repeat ;
+          background-size: 65%;
         }
       }
     }

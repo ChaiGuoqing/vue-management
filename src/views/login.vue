@@ -9,8 +9,8 @@
           <img class="login-plane-title-line" src="@/assets/img/images/login_horizontal_line.png" alt="" />
         </div>
         <div class="login-plane-form">
-          <el-form label-position="left" :model="ruleForm" :rules="rules" ref="ruleForm" label-width="0px" class="demo-ruleForm">
-            <h3 class="title">用户登录</h3>
+          <el-form label-position="left" :model="ruleForm" :rules="rules" ref="ruleForm" label-width="0px">
+            <!-- <h3 class="title">用户登录</h3> -->
             <el-form-item prop="username">
               <el-input type="text" v-model="ruleForm.username" auto-complete="off" placeholder="账号"></el-input>
             </el-form-item>
@@ -18,18 +18,20 @@
               <el-input type="password" v-model="ruleForm.password" auto-complete="off" placeholder="密码"></el-input>
             </el-form-item>
             <el-row>
-              <el-col :span="12">
+              <el-col :span="16">
                 <el-form-item prop="code">
                   <el-input type="text" v-model="ruleForm.code" auto-complete="off" placeholder="图形验证码" @keyup.enter.native="submitForm('ruleForm')"></el-input>
                 </el-form-item>
               </el-col>
-              <el-col :span="12" class="code-box">
-                <img :src="ruleForm.codeimg" alt="" class="codeimg" @click="getcode()">
+              <el-col :span="8" class="code-box">
+                <canvas id="captcha" class="captcha" @click="initCaptcha"></canvas>
               </el-col>
             </el-row>
             <el-checkbox class="remember" v-model="rememberpwd">记住密码</el-checkbox>
             <el-form-item style="width:100%;">
-              <el-button type="primary" style="width:100%;background:#26292c;border-color:#26292c" @click="submitForm('ruleForm')" :loading="logining">登录</el-button>
+              <el-button type="primary" class="btn" @click="submitForm('ruleForm')" :loading="logining">登录</el-button>
+              <br/>
+              <p style="color:#fff">随便输入</p>
             </el-form-item>
           </el-form>
         </div>
@@ -39,12 +41,25 @@
   </div>
 </template>
 <script type="text/ecmascript-6">
+import CaptchaMini from 'captcha-mini'; //引入验证码生成组件​
 import { login } from '../api/userMG'
 import { setCookie, getCookie, delCookie } from '../utils/util'
 import md5 from 'js-md5'
 export default {
   name: 'login',
   data() {
+    var validateCode = (rule, value, callback) => {
+      if(!value){
+        return  callback(new Error('请输入验证码'));
+      }else {
+        let val = value.compare(this.captcha)
+        if(val){
+           return callback();
+        }else{
+          return  callback(new Error('验证码输入有误'));
+        }
+      }
+    };
     return {
       //定义loading默认为false
       logining: false,
@@ -62,7 +77,7 @@ export default {
       rules: {
         username: [{ required: true, message: '请输入账号', trigger: 'blur' }],
         password: [{ required: true, message: '请输入密码', trigger: 'blur' }],
-        code: [{ required: true, message: '请输入验证码', trigger: 'blur' }]
+        code:[{required: true, validator: validateCode, trigger: 'blur' },],
       },
       canvastx: null,
       fontsize: 18,
@@ -71,7 +86,8 @@ export default {
       lie: null,
       str: '01',
       text: [],
-      timer: null
+      timer: null,
+      captcha:''
     }
   },
   // 创建完毕状态(里面是操作)
@@ -80,8 +96,6 @@ export default {
     //   message: '账号密码及验证码不为空即可',
     //   type: 'success'
     // })
-    // 获取图形验证码
-    // this.getcode()
     // 获取存在本地的用户名密码
     this.getuserpwd()
     
@@ -91,6 +105,7 @@ export default {
     this.W = window.innerWidth
     this.lie = Math.floor(this.W / this.fontsize)
     this.initCanvas()
+    this.initCaptcha()
   },
   beforeDestroy() {
     clearInterval(this.timer)
@@ -190,7 +205,26 @@ export default {
       var g = Math.ceil(Math.random() * 155) + 100
       var b = Math.ceil(Math.random() * 155) + 100
       return 'rgb(' + r + ',' + g + ',' + b + ')'
-    }
+    },
+    //生成验证码
+    initCaptcha() {
+      var captcha = new CaptchaMini({
+          lineWidth: 5, //线条宽度
+          lineNum: 6, //线条数量
+          dotR: 2, //点的半径
+          dotNum: 25, //点的数量
+          preGroundColor: [10, 80], //前景色区间
+          backGroundColor: [150, 250], //背景色区间
+          fontSize: 70, //字体大小
+          fontFamily: ["Georgia", "微软雅黑", "Helvetica", "Arial"], //字体类型
+          fontStyle: "stroke", //字体绘制方法，有fill和stroke
+          content: "ABCDEFGHJKLMNOPQRSTUVWXYZ1234567890", //验证码内容
+          length: 4 //验证码长度
+      });
+      captcha.draw(document.getElementById("captcha"), r => {
+          this.captcha = r; // 可通过 this.captcha 使用当前验证码（校验用户输入对否等） 
+      });
+    },
   }
 }
 </script>
@@ -273,24 +307,27 @@ $light_gray:#eee;
       .login-plane-form {
         padding: 45px 55px;
         box-sizing: border-box;
-        .login-code-container {
-          display: flex;
-          align-items: flex-start;
-          justify-content: space-between;
-          .login-code {
-            cursor: pointer;
-            width: 45%;
+        .code-box{
+          .captcha {
+            margin-left: 10px;
+            width: 150px;
             height: 40px;
-            background-color: #c8c8c8;
-            img {
-              width: 100%;
-              height: 100%;
-            }
+            border-radius: 6px;
           }
+        }
+        .btn{
+          margin-top:10px ;
+          width:100%;
+          background:#01101e2e;
+          border-color:#26292c;
+        }
+        .btn:hover{
+          background:#0d223685;
         }
       }
     }
   }
+
   // .login-ground {
   //   position: absolute;
   //   z-index: 9998;
@@ -303,4 +340,11 @@ $light_gray:#eee;
   //   left: 0;
   // }
 }
+</style>
+<style lang='less' scoped>
+    /deep/.el-input__inner,/deep/.el-checkbox__inner{
+      background-color:#fff0 !important;
+      color: #fff;
+    }
+    /deep/::-webkit-scrollbar {width: 0 !important}
 </style>
