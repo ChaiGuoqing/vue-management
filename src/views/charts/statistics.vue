@@ -6,7 +6,7 @@
   <div class="stbox">
     <!-- 面包屑导航 -->
     <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+      <el-breadcrumb-item :to="{ path: '/home' }">首页</el-breadcrumb-item>
       <el-breadcrumb-item>数据可视化</el-breadcrumb-item>
     </el-breadcrumb>
     <!-- 搜索，切换 -->

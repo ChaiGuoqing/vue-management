@@ -6,18 +6,25 @@
     <div class="logobox">
       <img class="logoimg" src="../assets/img/logo2.png" alt="">
     </div>
-    <el-submenu v-for="menu in allmenu" :key="menu.menuid" :index="menu.menuname">
-      <template slot="title">
-        <i class="iconfont" :class="menu.icon"></i>
-        <span>{{menu.menuname}}</span>
-      </template>
-      <el-menu-item-group>
-        <el-menu-item v-for="chmenu in menu.menus" :index="'/'+chmenu.url" :key="chmenu.menuid">
-          <i class="iconfont" :class="chmenu.icon"></i>
-          <span>{{chmenu.menuname}}</span>
-        </el-menu-item>
-      </el-menu-item-group>
-    </el-submenu>
+    <template v-for="menu in allmenu"  >
+      <el-submenu  v-if="menu.menus.length>0" :key="menu.menuid" :index="menu.menuname">
+        <template slot="title">
+          <i class="iconfont" :class="menu.icon"></i>
+          <span>{{menu.menuname}}</span>
+        </template>
+        <el-menu-item-group>
+          <el-menu-item v-for="chmenu in menu.menus" :index="'/'+chmenu.url" :key="chmenu.menuid">
+            <i class="iconfont" :class="chmenu.icon"></i>
+            <span>{{chmenu.menuname}}</span>
+          </el-menu-item>
+        </el-menu-item-group>
+      </el-submenu>
+      <el-menu-item v-else  :key="menu.menuid" :index="'/'+menu.url">
+          <i class="iconfont" :class="menu.icon"></i>
+          <span>{{menu.menuname}}</span>
+      </el-menu-item>
+    </template>
+
   </el-menu>
 </template>
 <script>
@@ -36,6 +43,14 @@ export default {
     let res = {
       success: true,
       data: [
+        {
+          menuid: 0,
+          icon: 'li-icon-xitongguanli',
+          menuname: '首页',
+          hasThird: null,
+          url: 'home',
+          menus: []
+        },
         {
           menuid: 1,
           icon: 'li-icon-xiangmuguanli',
@@ -155,7 +170,7 @@ export default {
       ],
       msg: 'success'
     }
-          this.allmenu = res.data
+    this.allmenu = res.data
     
     // menu(localStorage.getItem('logintoken'))
     //   .then(res => {

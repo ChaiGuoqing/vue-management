@@ -1,6 +1,8 @@
 // 导入组件
 import Vue from 'vue';
 import Router from 'vue-router';
+// home
+import home from '@/views/home';
 // 登录
 import login from '@/views/login';
 // 首页
@@ -61,14 +63,6 @@ export default new Router({
         meta: {
             requireAuth: false
         }
-    }, {
-        path: '/login',
-        name: '登录',
-        component: login,
-        hidden: true,
-        meta: {
-            requireAuth: false
-        }
     },{
         path: '/largeScreen',
         name: '监控查询',
@@ -78,10 +72,17 @@ export default new Router({
         }
     }, {
         path: '/index',
-        name: '首页',
         component: index,
         iconCls: 'el-icon-tickets',
-        children: [{
+        children: [
+        {
+            path: '/home',
+            name: '首页',
+            component: home,
+            meta: {
+                requireAuth: true
+            }
+        },{
             path: '/goods/Goods',
             name: '商品管理',
             component: Goods,

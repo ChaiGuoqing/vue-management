@@ -317,6 +317,7 @@ computed: {
     getMenuData(){
       let data = [
         {menuName:'公司管理',menuUrl:'/system/Dept'},
+        {menuName:'首 页',menuUrl:'/home'},
         {menuName:'商品管理',menuUrl:'/goods/Goods'},
         {menuName:'交易订单',menuUrl:'/pay/Order'},
         {menuName:'用户管理',menuUrl:'/system/user'},

@@ -5,7 +5,7 @@
   <div>
     <!-- 面包屑导航 -->
     <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+      <el-breadcrumb-item :to="{ path: '/home' }">首页</el-breadcrumb-item>
       <el-breadcrumb-item>支付配置信息</el-breadcrumb-item>
     </el-breadcrumb>
     <!-- 搜索筛选 -->
@@ -33,7 +33,6 @@
       <el-table-column sortable prop="editTime" label="修改时间" width="200">
         <template slot-scope="scope">
           <div>{{scope.row.editTime|timestampToTime}}</div>
-          </el-switch>
         </template>
       </el-table-column>
       <el-table-column sortable prop="editUser" label="修改人" width="150">

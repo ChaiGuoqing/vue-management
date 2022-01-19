@@ -129,8 +129,7 @@ export default {
           setTimeout(() => {
             this.logining = false
             this.$store.commit('login', 'true')
-            // this.$router.push({ path: '/goods/Goods' })
-            this.$router.push({ path: 'largeScreen' })
+            this.$router.push({ path: '/largeScreen' })
           }, 1000)
           // 注释
           // login(this.ruleForm).then(res => {

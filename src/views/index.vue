@@ -74,7 +74,8 @@ export default {
 .index-con {
   height: 100%;
   width: 100%;
-  box-sizing: border-box;
+  /* box-sizing: border-box; */
+  background-color: #f6f8f9;
 }
 
 .aside {

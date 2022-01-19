@@ -21,6 +21,7 @@
     "lib-flexible": "^0.3.2",
     "node-sass": "^7.0.1",
     "react-scale-box": "^1.0.2",
+    "sortablejs": "^1.14.0",
     "vue": "^2.5.2",
     "vue-count-to": "^1.0.13",
     "vue-router": "^3.0.1",
