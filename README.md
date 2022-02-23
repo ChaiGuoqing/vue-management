@@ -1,7 +1,7 @@
 # vue搭建后台管理界面模版（PC端）
 ------------------------
 ### 浏览器访问
-https://chaiguoqing.github.io/vue-management/dist/#/index.html
+https://chaiguoqing.github.io/vue-management/dist/
 
 #### 目录结构
 ------------------------
