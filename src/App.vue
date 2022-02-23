@@ -27,4 +27,5 @@ body {
     widows: 100%;
     height: 100%;
 }
+::-webkit-scrollbar {width: 0 !important}
 </style>

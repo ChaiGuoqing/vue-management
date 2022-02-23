@@ -50,8 +50,7 @@ export default {
           hasThird: null,
           url: 'home',
           menus: []
-        },
-        {
+        },{
           menuid: 1,
           icon: 'li-icon-xiangmuguanli',
           menuname: '基础管理',
@@ -64,6 +63,29 @@ export default {
               menuname: '商品管理',
               hasThird: 'N',
               url: 'goods/Goods',
+              menus: null
+            }
+          ]
+        },{
+          menuid: 2,
+          icon: 'icon-cat-skuQuery',
+          menuname: '组件',
+          hasThird: null,
+          url: null,
+          menus: [
+            {
+              menuid: 20,
+              icon: 'icon-cat-skuQuery',
+              menuname: '图片轮播1',
+              hasThird: 'N',
+              url: 'swiper1',
+              menus: null
+            },{
+              menuid: 21,
+              icon: 'icon-cat-skuQuery',
+              menuname: '图片轮播2',
+              hasThird: 'N',
+              url: 'swiper2',
               menus: null
             }
           ]

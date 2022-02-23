@@ -83,6 +83,22 @@ export default new Router({
                 requireAuth: true
             }
         },{
+            path: '/swiper1',
+            name: '组件',
+            component: () => import( /* webpackChunkName: "org" */ '@/views/swiper/swiper1/index.vue'),
+            meta: {
+              title: '图片轮播1',
+              requireAuth: true
+            }
+        },{
+            path: '/swiper2',
+            name: '组件',
+            component: () => import( /* webpackChunkName: "org" */ '@/views/swiper/swiper2/index.vue'),
+            meta: {
+              title: '图片轮播2',
+              requireAuth: true
+            }
+        },{
             path: '/goods/Goods',
             name: '商品管理',
             component: Goods,

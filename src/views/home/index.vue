@@ -20,6 +20,9 @@
           </el-card>
         </div>
       </el-col>
+      <el-col :span="24">
+        <swiper class="swiperClass"></swiper>
+      </el-col>
       <el-col v-for="(item, index) in iconList" :key="index" :xs="12" :sm="6" :md="3" :lg="3" :xl="3">
         <el-card class="icon-panel" shadow="hover"  @click.native="goPath(item)">
           <i :class="item.icon" :style="{'color':item.color}"></i>
@@ -35,12 +38,14 @@
 
 <script type="text/javascript">
 import Plan from './components/Plan'
- import chaiIcon from '@/components/icon/index.vue';
+import chaiIcon from '@/components/icon/index.vue';
+import swiper from '../swiper/swiper2/index.vue'
   export default {
     name: "component_name",
     components: {
       chaiIcon,
-      Plan
+      Plan,
+      swiper
     },
     data() {
       return {
@@ -143,6 +148,7 @@ import Plan from './components/Plan'
 </script>
 
 <style  scoped lang="less">
+
   .header{
     min-height: 125px;
     transition: none;
