@@ -188,6 +188,13 @@ export default {
               menus: null
             }
           ]
+        },{
+          menuid: 4,
+          icon: 'icon-cus-manage',
+          menuname: '个人中心',
+          hasThird: null,
+          url: 'personalCenter',
+          menus: []
         }
       ],
       msg: 'success'

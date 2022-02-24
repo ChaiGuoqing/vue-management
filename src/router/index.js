@@ -189,7 +189,16 @@ export default new Router({
             meta: {
                 requireAuth: true
             }
+        }, {
+            path: '/personalCenter',
+            name: '个人中心',
+            component: () => import( /* webpackChunkName: "org" */ '@/views/personal_center/index.vue'),
+            meta: {
+              title: '个人中心',
+              requireAuth: true
+            }
         }
+        
     ]
     }]
 })
