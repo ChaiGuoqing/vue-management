@@ -87,6 +87,13 @@ export default {
               hasThird: 'N',
               url: 'swiper2',
               menus: null
+            },{
+              menuid: 22,
+              icon: 'icon-cat-skuQuery',
+              menuname: 'table',
+              hasThird: 'N',
+              url: 'table',
+              menus: null
             }
           ]
         },

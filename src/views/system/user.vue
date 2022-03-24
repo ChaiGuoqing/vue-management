@@ -31,7 +31,7 @@
     </el-form>
     <!--列表-->
     <el-table size="small" @selection-change="selectChange" :data="userData" highlight-current-row v-loading="loading" border element-loading-text="拼命加载中" style="width: 100%;">
-      <el-table-column align="center" type="selection" width="50">
+      <el-table-column align="center" type="selection" :reserve-selection="true" width="50">
       </el-table-column>
       <el-table-column align="center" sortable prop="deptName" label="公司" width="120">
       </el-table-column>

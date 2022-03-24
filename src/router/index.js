@@ -99,6 +99,14 @@ export default new Router({
               requireAuth: true
             }
         },{
+            path: '/table',
+            name: '组件',
+            component: () => import( /* webpackChunkName: "org" */ '@/views/table/table.vue'),
+            meta: {
+              title: 'table',
+              requireAuth: true
+            }
+        },{
             path: '/goods/Goods',
             name: '商品管理',
             component: Goods,
